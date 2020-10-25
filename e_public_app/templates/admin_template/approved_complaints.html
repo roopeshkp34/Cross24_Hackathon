@@ -1,0 +1,52 @@
+{% extends 'admin_template/base_template.html' %}
+{% block page_title %}
+Approved Complaints
+{% endblock page_title %}
+{% block main_content %}
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap">
+              <thead>
+                <tr>
+                  <!-- <th>ID</th> -->
+                  <th>Send On</th>
+                  <th>Complaint</th>
+                  <th>People</th>
+                  <th>Department</th>
+                  <th>Panchayath</th>
+                  <th>User Approvel</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for complaint in complaints %}
+              {% if complaint.status == 1 or complaint.status == 2 %}
+                <tr>
+                  <!-- <td>{{ complaint.id }}</td> -->
+                  <td>{{ complaint.created_at}} </td>
+                  <td>{{ complaint.description }}</td>
+                  <td>{{ complaint.people_id.peoples.first_name }}</td>
+                  <td>{{ complaint.department_id.peoples.first_name }}</td>
+                  <td>{{ complaint.people_id.panchayath }}( {{ complaint.people_id.district }} )</td>
+                  {% if complaint.complete == 3 %}
+                  <td><a  class="btn btn-success">User Approved</a>
+                    {% else %}
+                  <td><a class="btn btn-info">Pending</a>
+
+                    {% endif %}
+                </td>
+                </tr>
+                {% endif %}
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+{% endblock main_content %}
+{% block custom_js %}
+{% endblock custom_js %}

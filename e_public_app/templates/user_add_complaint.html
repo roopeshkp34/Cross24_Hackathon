@@ -1,0 +1,72 @@
+{% extends 'people_template/base_template.html' %}
+{% block page_title %}
+File Complaint
+{% endblock page_title %}
+{% block main_content %}
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <div class="form-group">
+                {% if messages %}
+                  {% for message in messages %}
+                  {% if message.tags == 'error' %}
+                  <div class="alert alert-danger" style="margin-top:10px;">{{message}}</div>
+                  {% endif %}
+                  {% if message.tags == 'success' %}
+                  <div class="alert alert-success" style="margin-top:10px;">{{message}}</div>
+                  {% endif %}
+                  {% endfor %}
+                {% endif %}
+              </div>
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title"> File Complaint</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" action="/user_add_complaint" method="POST" >
+                {% csrf_token %}
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Complaint</label>
+                        <textarea class="form-control" name="description" placeholder="Enter Details" required>
+                        </textarea>
+                      </div>
+                  <div class="form-group">
+                    <label>Department</label>
+                    <select  class="form-control" name="department" id="mySelect" onchange="myFunction()" required>
+                        {% for department in department %}
+                        <option value="{{ department.id }}">{{ department.peoples.first_name }}</option>
+                        {% endfor %}
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>User</label>
+                    <select  class="form-control" name="user" id="demo" required>
+                        {% for peoples in peoples %}
+                        <option value="{{ peoples.id }}">{{ peoples.peoples.first_name }}  {{ peoples.peoples.last_name }}</option>
+                        {% endfor %}
+                    </select>
+                  </div>
+                 
+                  </div>
+                
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary btn-block">File Complaint</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+
+           
+    </div>
+  </section>
+  <!-- /.content -->
+{% endblock main_content %}
+{% block custom_js %}
+
+{% endblock custom_js %}
